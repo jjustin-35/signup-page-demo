@@ -16,8 +16,8 @@ class Icon extends HTMLElement {
 
     icon.src = data[type]?.src ?? "";
     icon.alt = data[type]?.alt ?? "";
-    icon.width = width ? Number(width) : 24;
-    icon.height = height ? Number(height) : 24;
+    icon.style.width = width ?? "100%";
+    icon.style.height = height ?? "100%";
 
     shadow.appendChild(icon);
   }
@@ -30,10 +30,10 @@ class Icon extends HTMLElement {
         icon.alt = data[newValue as IconType]?.alt ?? "";
         break;
       case "width":
-        icon.width = Number(newValue);
+        icon.style.width = newValue;
         break;
       case "height":
-        icon.height = Number(newValue);
+        icon.style.height = newValue;
         break;
     }
   }

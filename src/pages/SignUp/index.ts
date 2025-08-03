@@ -1,0 +1,56 @@
+import "../../components/Icon";
+import "../../components/Field";
+import "../../components/Field/passwordHint";
+import "../../components/Checkbox";
+import "./style.css";
+
+class SignUpPage extends HTMLElement {
+  constructor() {
+    super();
+
+    const signupPage = document.createElement("section");
+    signupPage.classList.add("page_wrapper");
+
+    const signupSection = document.createElement("div");
+    signupSection.classList.add("signup_section");
+
+    signupSection.innerHTML = `
+      <a class="signup_backlink" href="/">
+        <custom-icon type="arrowLeft" width="16px" height="16px"></custom-icon>
+        <span>Back</span>
+      </a>
+      <div class="signup_section_content">
+        <p class="signup_section_subtitle">Start from free</p>
+        <h1 class="signup_section_title">Create an account</h1>
+        <div class="signup_button_group">
+          <a class="button button--outline" href="https://google.com" target="_blank">
+            <custom-icon type="google" width="16px" height="16px"></custom-icon>
+            <span>Sign up with Google</span>
+          </a>
+          <a class="button button--outline" href="https://facebook.com" target="_blank">
+            <custom-icon type="facebook" width="16px" height="16px"></custom-icon>
+            <span>Sign up with Facebook</span>
+          </a>
+        </div>
+        <div class="signup_form_separator">
+          <span>Or use your email for registration</span>
+        </div>
+        <form class="signup_form">
+          <div class="signup_form_field_group">
+            <form-field label="First Name" type="text" name="first_name"></form-field>
+            <form-field label="Last Name" type="text" name="last_name"></form-field>
+          </div>
+          <form-field label="Email" type="email" name="email"></form-field>
+          <form-field label="Password" type="password" name="password"></form-field>
+          <login-checkbox label="By creating account, you agree to accept our Privacy Policy, Terms of Service and Notification settings." name="accept_terms"></login-checkbox>
+          <button class="button" type="submit">Create an Free Account!</button>
+        </form>
+      </div>
+    `;
+
+    signupPage.appendChild(signupSection);
+    this.appendChild(signupPage);
+  }
+}
+
+customElements.define("signup-page", SignUpPage);

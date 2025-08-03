@@ -1,22 +1,25 @@
 import "@/components/Icon";
+import "./style.css";
+
+type FieldType = "text" | "email" | "password";
 
 class Field extends HTMLElement {
   static observedAttributes = ["label", "type", "name"];
   private isHide = true;
+  private fieldType: FieldType = "text";
 
   constructor() {
     super();
 
-    const shadow = this.attachShadow({ mode: "open" });
     const field = document.createElement("div");
-    const style = document.createElement("style");
-
-    style.textContent = `@import url('/src/components/Field/style.css');`;
-    shadow.appendChild(style);
 
     const label = this.getAttribute("label");
-    const type = this.getAttribute("type");
+    const type = this.getAttribute("type") as FieldType;
     const name = this.getAttribute("name");
+    const isRequired = this.getAttribute("required") === "true";
+    const id = this.getAttribute("id") ?? `input_${name}`;
+
+    this.fieldType = type;
 
     field.classList.add("field");
     field.setAttribute("tabindex", "0");
@@ -26,19 +29,18 @@ class Field extends HTMLElement {
               ? `<label class="field_label" for="${this.id}">${label}</label>`
               : ""
           }
-      <input id="${
-        this.id ?? name
-      }" type="${type}" name="${name}" class="field_input" placeholder="" />
+      <input id="${id}" type="${type}" name="${name}" class="field_input" placeholder=""
+      ${isRequired ? "required" : ""} />
       ${
-        name === "password"
+        this.fieldType === "password"
           ? `<custom-icon type=${
               this.isHide ? "viewOff" : "view"
-            } class="field_icon" width="18" height="18" />`
+            } class="field_icon" width="18px" height="18px" />`
           : ""
       }
     `;
 
-    shadow.appendChild(field);
+    this.appendChild(field);
   }
 
   private focusField(e: MouseEvent) {
@@ -53,21 +55,19 @@ class Field extends HTMLElement {
     e.preventDefault();
     e.stopPropagation();
 
-    const field = this.shadowRoot?.querySelector(".field") as HTMLDivElement;
+    const field = this.querySelector(".field") as HTMLDivElement;
     const input = field.querySelector(".field_input") as HTMLInputElement;
-    const name = input.getAttribute("name");
 
-    if (name !== "password") return;
+    if (this.fieldType !== "password") return;
 
     this.isHide = !this.isHide;
-    console.log(this.isHide);
     input.type = this.isHide ? "password" : "text";
     const icon = field.querySelector("custom-icon") as HTMLImageElement;
     icon.setAttribute("type", this.isHide ? "viewOff" : "view");
   }
 
   connectedCallback() {
-    const field = this.shadowRoot?.querySelector(".field") as HTMLDivElement;
+    const field = this.querySelector(".field") as HTMLDivElement;
     const icon = field.querySelector("custom-icon") as HTMLImageElement;
     field.addEventListener("click", this.focusField);
 
@@ -77,7 +77,7 @@ class Field extends HTMLElement {
   }
 
   disconnectedCallback() {
-    const field = this.shadowRoot?.querySelector(".field") as HTMLDivElement;
+    const field = this.querySelector(".field") as HTMLDivElement;
     field.removeEventListener("click", this.focusField);
     const icon = field.querySelector("custom-icon") as HTMLImageElement;
     if (icon) {
@@ -87,7 +87,7 @@ class Field extends HTMLElement {
 
   attributeChangedCallback(name: string, _: string, newValue: string) {
     if (name === "label") {
-      const field = this.shadowRoot?.querySelector(".field") as HTMLDivElement;
+      const field = this.querySelector(".field") as HTMLDivElement;
       const label = field.querySelector(".field_label") as HTMLLabelElement;
       label.textContent = newValue;
     }

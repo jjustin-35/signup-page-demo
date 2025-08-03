@@ -3,18 +3,15 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --primary-color: #3C71FF;
-  --primary-color-light: #F1F5FF;
+  --primary-color: #3c71ff;
+  --primary-color-light: #f1f5ff;
   --gray-color: #757575;
+  --gray-color-light: #ababab;
 }
 
 a {
@@ -28,11 +25,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
-  background-color: var(--primary-color-light);
+  background-color: #ffffff;
 }
 
 h1 {
@@ -40,40 +34,34 @@ h1 {
   line-height: 1.1;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
+.page_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--primary-color-light);
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.login_button {
+.button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 16px 12px;
-  font-size: 16px;
+  font-size: 14px;
   font-family: inherit;
   background-color: var(--primary-color);
   color: #ffffff;
   cursor: pointer;
   transition: all 0.3s;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
   &:hover {
-    box-shadow: 0px 6px 15px 0px #3C71FF66;
+    color: #ffffff;
+    box-shadow: 0px 6px 15px 0px #3c71ff66;
   }
 
   &:focus {
@@ -81,14 +69,27 @@ h1 {
   }
 }
 
-.login_button--outline {
+.button--outline {
   background-color: #ffffff;
-  color: var(--primary-color);
+  color: black;
   border: 1px solid var(--primary-color);
 
   &:hover {
     background-color: var(--primary-color);
     color: #ffffff;
-    box-shadow: 0px 6px 15px 0px #3C71FF66;
+    box-shadow: 0px 6px 15px 0px #3c71ff66;
   }
+}
+
+/* custom elements */
+
+form-field:not(:defined),
+custom-icon:not(:defined),
+login-checkbox:not(:defined),
+signup-page:not(:defined),
+home-page:not(:defined) {
+  display: block;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
