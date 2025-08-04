@@ -6,7 +6,9 @@ import "./style.css";
 import formData from "./data";
 
 class SignupForm extends HTMLElement {
-  static observedAttributes = ["form-type"];
+  static observedAttributes = ["form-type", 'loading'];
+
+  private buttonText = "Create an Free Account!";
 
   constructor() {
     super();
@@ -29,15 +31,31 @@ class SignupForm extends HTMLElement {
       })
       .join("");
 
+    const checkboxLabel = "By creating account, you agree to accept our Privacy Policy, Terms of Service and Notification settings.";
     form.innerHTML = `
       ${formFieldsHTML}
-      <login-checkbox label="By creating account, you agree to accept our Privacy Policy, Terms of Service and Notification settings." name="accept_terms"></login-checkbox>
+      <login-checkbox label="${checkboxLabel}" name="accept_terms" required="true"></login-checkbox>
       <button class="button" type="submit">
-        <span>Create an Free Account!</span>
+        <span>${this.buttonText}</span>
       </button>
     `;
 
     this.appendChild(form);
+  }
+
+  private toggleButton(button: HTMLButtonElement, isLoading: boolean) {
+    button.disabled = isLoading;
+    const span = button.querySelector("span") as HTMLSpanElement;
+    const originalText = this.buttonText;
+    span.textContent = isLoading ? "Please wait..." : originalText;
+  }
+
+  attributeChangedCallback(name: string, _: string, newValue: string) {
+    if (name === "loading") {
+      const button = this.querySelector("button[type='submit']") as HTMLButtonElement;
+      const toggleButton = this.toggleButton.bind(this);
+      toggleButton(button, newValue === "true");
+    }
   }
 }
 

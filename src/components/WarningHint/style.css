@@ -1,0 +1,14 @@
+.warning_hint {
+  display: none;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px;
+  background-color: #F5C4C6;
+  border-radius: 4px;
+  border: 1px solid #D71920;
+  margin-bottom: 16px;
+
+  &.warning_hint--error {
+    display: flex;
+  }
+}

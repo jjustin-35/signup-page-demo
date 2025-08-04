@@ -2,7 +2,13 @@ import "../Icon";
 import "./style.css";
 
 class LoginCheckbox extends HTMLElement {
-  static observedAttributes = ["checked", "disabled"];
+  static observedAttributes = [
+    "checked",
+    "disabled",
+    "name",
+    "label",
+    "required",
+  ];
 
   constructor() {
     super();
@@ -14,12 +20,15 @@ class LoginCheckbox extends HTMLElement {
     const label = this.getAttribute("label");
     const isDisabled = this.getAttribute("disabled") === "true";
     const isChecked = this.getAttribute("checked") === "true";
+    const isRequired = this.getAttribute("required") === "true";
 
     checkboxField.innerHTML = `
       <div class="checkbox_wrapper">
         <custom-icon type="check" width="11px" height="auto" class="checkbox_icon" />
         <input type="checkbox" class="checkbox--hidden" name="${name}" id="checkbox_${name}" 
-        ${isDisabled ? "disabled" : ""} ${isChecked ? "checked" : ""} />
+        ${isDisabled ? "disabled" : ""} ${isChecked ? "checked" : ""} ${
+      isRequired ? "required" : ""
+    } />
       </div>
       <label for="checkbox_${name}" class="checkbox_label">
         ${label}
@@ -38,16 +47,12 @@ class LoginCheckbox extends HTMLElement {
   }
 
   connectedCallback() {
-    const checkbox = this.querySelector(
-      ".checkbox_wrapper"
-    ) as HTMLDivElement;
+    const checkbox = this.querySelector(".checkbox_wrapper") as HTMLDivElement;
     checkbox.addEventListener("click", this.handleChange);
   }
 
   disconnectedCallback() {
-    const checkbox = this.querySelector(
-      ".checkbox_wrapper"
-    ) as HTMLDivElement;
+    const checkbox = this.querySelector(".checkbox_wrapper") as HTMLDivElement;
     checkbox.removeEventListener("click", this.handleChange);
   }
 
@@ -62,6 +67,9 @@ class LoginCheckbox extends HTMLElement {
         break;
       case "disabled":
         checkbox.disabled = newValue === "true";
+        break;
+      case "required":
+        checkbox.required = newValue === "true";
         break;
       default:
         break;
