@@ -25,6 +25,18 @@ const data = {
     src: "/icons/arrow-left.svg",
     alt: "icon-arrow-left",
   },
+  warning: {
+    src: "/icons/warning-circle.svg",
+    alt: "icon-warning",
+  },
+  facebook: {
+    src: "/icons/facebook.svg",
+    alt: "icon-facebook",
+  },
+  google: {
+    src: "/icons/google.svg",
+    alt: "icon-google",
+  },
 } as const;
 
 export default data;

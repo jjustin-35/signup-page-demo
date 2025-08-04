@@ -22,7 +22,9 @@ class SignupForm extends HTMLElement {
     const formFieldsHTML = formFields
       .map((field) => {
         return `
-        <form-field label="${field.label}" type="${field.type}" name="${field.name}" isHalf="${field.isHalf || false}"  required></form-field>
+        <form-field label="${field.label}" type="${field.type}" name="${
+          field.name
+        }" isHalf="${field.isHalf || false}"  required></form-field>
       `;
       })
       .join("");
@@ -30,7 +32,9 @@ class SignupForm extends HTMLElement {
     form.innerHTML = `
       ${formFieldsHTML}
       <login-checkbox label="By creating account, you agree to accept our Privacy Policy, Terms of Service and Notification settings." name="accept_terms"></login-checkbox>
-      <button class="button" type="submit">Create an Free Account!</button>
+      <button class="button" type="submit">
+        <span>Create an Free Account!</span>
+      </button>
     `;
 
     this.appendChild(form);

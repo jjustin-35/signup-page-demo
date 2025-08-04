@@ -20,4 +20,8 @@
 
 .signup_form .button {
   margin-top: 8px;
+  > span {
+    width: 100%;
+    text-align: center;
+  }
 } 
