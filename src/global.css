@@ -12,6 +12,8 @@
   --primary-color-light: #f1f5ff;
   --gray-color: #757575;
   --gray-color-light: #ababab;
+  --error-color: #D71920;
+  --error-color-light: #F5C4C6;
 }
 
 a {

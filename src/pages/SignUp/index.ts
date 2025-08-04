@@ -57,7 +57,7 @@ class SignUpPage extends HTMLElement {
     const fields = data.signup;
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    const isError = Array.from(formData.entries()).some(([key, value]) => {
+    const errorFields = Array.from(formData.entries()).filter(([key, value]) => {
       const currentField = fields.find((field) => field.name === key);
       if (!currentField) return false;
       if (!currentField.required) return false;
@@ -75,9 +75,14 @@ class SignUpPage extends HTMLElement {
     const warningHint = this.querySelector(
       "warning-hint"
     ) as HTMLElement;
-    if (isError) {
+    if (errorFields.length > 0) {
       warningHint.setAttribute("error", "true");
       signupForm.setAttribute("loading", "false");
+
+      errorFields.forEach(([key]) => {
+        const field = form.querySelector(`form-field[name="${key}"]`) as HTMLElement;
+        field.setAttribute("error", "true");
+      });
       return;
     }
 

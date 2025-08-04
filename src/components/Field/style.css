@@ -26,6 +26,10 @@ form-field {
   &:has(.field_input:not(:placeholder-shown)) {
     padding: 22px 12px 10px;
   }
+
+  &.field--error {
+    outline: 2px solid var(--error-color);
+  }
 }
 
 .field_label {

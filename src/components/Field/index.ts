@@ -7,7 +7,7 @@ import "./style.css";
 type FieldType = "text" | "email" | "password";
 
 class Field extends HTMLElement {
-  static observedAttributes = ["label", "type", "name"];
+  static observedAttributes = ["label", "type", "name", "error"];
   private isHide = true;
   private fieldType: FieldType = "text";
 
@@ -19,6 +19,8 @@ class Field extends HTMLElement {
     const label = this.getAttribute("label");
     const type = this.getAttribute("type") as FieldType;
     const name = this.getAttribute("name");
+    const id = this.getAttribute("id") ?? `input_${name}`;
+    const isError = this.getAttribute("error") === "true";
     const required = this.getAttribute("required");
     const isHalf = this.getAttribute("isHalf") === "true";
     const isRequired = (() => {
@@ -26,11 +28,11 @@ class Field extends HTMLElement {
       if (required === "false") return false;
       return true;
     })();
-    const id = this.getAttribute("id") ?? `input_${name}`;
-
+    
     this.fieldType = type;
     if (isHalf) this.classList.add("is-half");
     field.classList.add("field");
+    if (isError) field.classList.add("field--error");
     field.setAttribute("tabindex", "0");
     field.innerHTML = `
           ${
@@ -139,6 +141,11 @@ class Field extends HTMLElement {
       const field = this.querySelector(".field") as HTMLDivElement;
       const label = field.querySelector(".field_label") as HTMLLabelElement;
       label.textContent = newValue;
+    }
+
+    if (name === "error") {
+      const field = this.querySelector(".field") as HTMLDivElement;
+      field.classList.toggle("field--error", newValue === "true");
     }
   }
 }
