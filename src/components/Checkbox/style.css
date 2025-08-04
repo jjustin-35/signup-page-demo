@@ -9,6 +9,7 @@
 .checkbox_wrapper {
   position: relative;
   display: flex;
+  flex: 0 0 auto;
   justify-content: center;
   align-items: center;
   width: 18px;

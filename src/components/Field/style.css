@@ -1,3 +1,16 @@
+form-field {
+  display: inline-block;
+  width: 100%;
+  &.is-half {
+    width: calc(50% - 10px);
+    margin-right: 20px;
+
+    &:nth-of-type(2n) {
+      margin-right: 0;
+    }
+  }
+}
+
 .field {
   display: flex;
   justify-content: space-between;

@@ -16,11 +16,17 @@ class Field extends HTMLElement {
     const label = this.getAttribute("label");
     const type = this.getAttribute("type") as FieldType;
     const name = this.getAttribute("name");
-    const isRequired = this.getAttribute("required") === "true";
+    const required = this.getAttribute("required");
+    const isHalf = this.getAttribute("isHalf") === "true";
+    const isRequired = (() => {
+      if (required === null) return false;
+      if (required === "false") return false;
+      return true;
+    })();
     const id = this.getAttribute("id") ?? `input_${name}`;
 
     this.fieldType = type;
-
+    if (isHalf) this.classList.add("is-half");
     field.classList.add("field");
     field.setAttribute("tabindex", "0");
     field.innerHTML = `

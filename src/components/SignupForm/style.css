@@ -1,0 +1,23 @@
+.signup_form {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 16px;
+  width: 100%;
+
+  > .button {
+    width: 100%;
+  }
+}
+
+.signup_form_field_group {
+  display: flex;
+  gap: 20px;
+}
+
+.signup_form_field_group form-field {
+  width: 100%;
+}
+
+.signup_form .button {
+  margin-top: 8px;
+} 

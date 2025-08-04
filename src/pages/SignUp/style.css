@@ -77,17 +77,4 @@
   }
 }
 
-.signup_form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
 
-.signup_form_field_group {
-  display: flex;
-  gap: 20px;
-
-  & > form-field {
-    width: 100%;
-  }
-}

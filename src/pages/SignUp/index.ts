@@ -1,7 +1,5 @@
 import "../../components/Icon";
-import "../../components/Field";
-import "../../components/Field/passwordHint";
-import "../../components/Checkbox";
+import "../../components/SignupForm";
 import "./style.css";
 
 class SignUpPage extends HTMLElement {
@@ -35,16 +33,7 @@ class SignUpPage extends HTMLElement {
         <div class="signup_form_separator">
           <span>Or use your email for registration</span>
         </div>
-        <form class="signup_form">
-          <div class="signup_form_field_group">
-            <form-field label="First Name" type="text" name="first_name"></form-field>
-            <form-field label="Last Name" type="text" name="last_name"></form-field>
-          </div>
-          <form-field label="Email" type="email" name="email"></form-field>
-          <form-field label="Password" type="password" name="password"></form-field>
-          <login-checkbox label="By creating account, you agree to accept our Privacy Policy, Terms of Service and Notification settings." name="accept_terms"></login-checkbox>
-          <button class="button" type="submit">Create an Free Account!</button>
-        </form>
+        <signup-form formType="signup"></signup-form>
       </div>
     `;
 
