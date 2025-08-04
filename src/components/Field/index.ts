@@ -1,4 +1,7 @@
+import { hasNumber, isLongerThan8Characters } from "@/helpers/validation";
 import "@/components/Icon";
+import "./passwordHint";
+import hint from "./passwordHint/data";
 import "./style.css";
 
 type FieldType = "text" | "email" | "password";
@@ -47,6 +50,17 @@ class Field extends HTMLElement {
     `;
 
     this.appendChild(field);
+
+    if (this.fieldType === "password") {
+      const passwordHints = Object.keys(hint)
+        .map(
+          (key) => `
+          <password-hint type="${key}" valid="false"></password-hint>
+        `
+        )
+        .join("");
+      this.innerHTML += passwordHints;
+    }
   }
 
   private focusField(e: MouseEvent) {
@@ -72,10 +86,36 @@ class Field extends HTMLElement {
     icon.setAttribute("type", this.isHide ? "viewOff" : "view");
   }
 
+  private onInput(e: Event) {
+    const value = (e.target as HTMLInputElement)?.value ?? "";
+
+    if (this.fieldType === "password") {
+      const passwordHint = this.querySelectorAll("password-hint");
+      passwordHint.forEach((hintElement) => {
+        const type = (hintElement as HTMLElement).getAttribute(
+          "type"
+        ) as keyof typeof hint;
+
+        if (type === "minLength") {
+          const isValid = isLongerThan8Characters(value).toString();
+          hintElement.setAttribute("valid", isValid);
+        } else if (type === "number") {
+          const isValid = hasNumber(value).toString();
+          hintElement.setAttribute("valid", isValid);
+        } else {
+          hintElement.setAttribute("valid", "false");
+        }
+      });
+    }
+  }
+
   connectedCallback() {
     const field = this.querySelector(".field") as HTMLDivElement;
     const icon = field.querySelector("custom-icon") as HTMLImageElement;
+    const input = field.querySelector(".field_input") as HTMLInputElement;
+
     field.addEventListener("click", this.focusField);
+    input.addEventListener("input", this.onInput.bind(this));
 
     if (icon) {
       icon.addEventListener("click", this.togglePasswordDisplay.bind(this));
@@ -84,8 +124,11 @@ class Field extends HTMLElement {
 
   disconnectedCallback() {
     const field = this.querySelector(".field") as HTMLDivElement;
-    field.removeEventListener("click", this.focusField);
+    const input = field.querySelector(".field_input") as HTMLInputElement;
     const icon = field.querySelector("custom-icon") as HTMLImageElement;
+
+    field.removeEventListener("click", this.focusField);
+    input.removeEventListener("change", this.onInput.bind(this));
     if (icon) {
       icon.removeEventListener("click", this.togglePasswordDisplay.bind(this));
     }

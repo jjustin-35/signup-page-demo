@@ -26,8 +26,9 @@ class Icon extends HTMLElement {
     const icon = this.shadowRoot?.querySelector("img") as HTMLImageElement;
     switch (name) {
       case "type":
-        icon.src = data[newValue as IconType]?.src ?? "";
-        icon.alt = data[newValue as IconType]?.alt ?? "";
+        const newIcon = data[newValue as IconType];
+        icon.src = newIcon?.src ?? "";
+        icon.alt = newIcon?.alt ?? "";
         break;
       case "width":
         icon.style.width = newValue;

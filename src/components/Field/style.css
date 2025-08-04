@@ -69,11 +69,18 @@ form-field {
   transform: translateY(-50%);
 }
 
+password-hint {
+  margin: 4px 14px 0 0;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
 .password_hint {
   font-size: 12px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
   color: var(--gray-color);
-  margin-top: 4px;
 }
