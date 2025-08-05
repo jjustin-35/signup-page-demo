@@ -1,6 +1,6 @@
 const hint = {
   minLength: "8 Characters min.",
-  number: "1 Number",
+  number: "One number",
 };
 
 export default hint;
