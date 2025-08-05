@@ -128,6 +128,3 @@ This project was developed with assistance from AI tools to enhance productivity
 - Follow BEM methodology for class naming
 - Implement responsive design approach
 - Use semantic HTML elements
-
-## License
-MIT License - feel free to use this project for your own purposes.
