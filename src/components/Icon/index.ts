@@ -1,3 +1,4 @@
+import { baseUrl } from "@/config";
 import data, { type IconType } from "./data";
 
 class Icon extends HTMLElement {
@@ -27,7 +28,7 @@ class Icon extends HTMLElement {
     switch (name) {
       case "type":
         const newIcon = data[newValue as IconType];
-        icon.src = newIcon?.src ?? "";
+        icon.src = newIcon?.src ? `${baseUrl}${newIcon.src}` : "";
         icon.alt = newIcon?.alt ?? "";
         break;
       case "width":

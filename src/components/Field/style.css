@@ -88,3 +88,10 @@ password-hint {
   gap: 4px;
   color: var(--gray-color);
 }
+
+@media (max-width: 768px) {
+  password-hint {
+    margin: 0;
+    display: none;
+  }
+}

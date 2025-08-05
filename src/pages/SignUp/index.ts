@@ -17,7 +17,7 @@ class SignUpPage extends HTMLElement {
     const signupSection = document.createElement("div");
     signupSection.classList.add("signup_section");
 
-    const warningText = "Please complete all the required fields to proceed.";    
+    const warningText = "Please complete all the required fields to proceed.";
 
     signupSection.innerHTML = `
       <a class="signup_backlink" href="${baseUrl}">
@@ -42,6 +42,7 @@ class SignUpPage extends HTMLElement {
           <span>Or use your email for registration</span>
         </div>
         <signup-form formType="signup"></signup-form>
+        <p class="signup_form_footer">Already have an account? <a href="${baseUrl}">Login</a></p>
       </div>
     `;
 
@@ -58,30 +59,32 @@ class SignUpPage extends HTMLElement {
     const fields = data.signup;
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    const errorFields = Array.from(formData.entries()).filter(([key, value]) => {
-      const currentField = fields.find((field) => field.name === key);
-      if (!currentField) return false;
-      if (!currentField.required) return false;
-      if (currentField?.required && !value) return true;
+    const errorFields = Array.from(formData.entries()).filter(
+      ([key, value]) => {
+        const currentField = fields.find((field) => field.name === key);
+        if (!currentField) return false;
+        if (!currentField.required) return false;
+        if (currentField?.required && !value) return true;
 
-      if (currentField.type === "password") {
-        const password = value.toString();
-        if (!isLongerThan8Characters(password) || !hasNumber(password))
-          return true;
+        if (currentField.type === "password") {
+          const password = value.toString();
+          if (!isLongerThan8Characters(password) || !hasNumber(password))
+            return true;
+        }
+
+        return false;
       }
+    );
 
-      return false;
-    });
-
-    const warningHint = this.querySelector(
-      "warning-hint"
-    ) as HTMLElement;
+    const warningHint = this.querySelector("warning-hint") as HTMLElement;
     if (errorFields.length > 0) {
       warningHint.setAttribute("error", "true");
       signupForm.setAttribute("loading", "false");
 
       errorFields.forEach(([key]) => {
-        const field = form.querySelector(`form-field[name="${key}"]`) as HTMLElement;
+        const field = form.querySelector(
+          `form-field[name="${key}"]`
+        ) as HTMLElement;
         field.setAttribute("error", "true");
       });
       return;
@@ -101,7 +104,7 @@ class SignUpPage extends HTMLElement {
     } else {
       alert("Signup failed");
     }
-  };
+  }
 
   connectedCallback() {
     const form = this.querySelector("form") as HTMLFormElement;
