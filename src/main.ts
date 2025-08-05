@@ -1,5 +1,4 @@
 import "./global.css";
-import { baseUrl, signupUrl } from "./config";
 import "./components/Field";
 import "./components/Field/style.css";
 import "./components/Field/passwordHint";
@@ -10,7 +9,6 @@ import "./pages/Home";
 import "./pages/SignUp";
 
 const app = document.getElementById("app");
-const pathname = window.location.pathname;
 
 const renderPage = (page: string) => {
   if (!app) return;
@@ -20,12 +18,17 @@ const renderPage = (page: string) => {
   });
 };
 
-if (app) {
-  if (pathname === signupUrl) {
+const handleRoute = () => {
+  const hash = window.location.hash.slice(1);
+  
+  if (hash === "signup") {
     renderPage("signup-page");
-  }
-
-  if (pathname === baseUrl) {
+  } else {
     renderPage("home-page");
   }
-}
+};
+
+window.addEventListener("hashchange", handleRoute);
+
+// 初始化路由
+handleRoute();
