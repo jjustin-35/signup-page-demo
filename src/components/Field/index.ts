@@ -117,10 +117,30 @@ class Field extends HTMLElement {
     }
   }
 
+  private onFormReset() {
+    // 重置 password field 的狀態
+    if (this.fieldType === "password") {
+      this.isHide = true;
+      const field = this.querySelector(".field") as HTMLDivElement;
+      const icon = field.querySelector("custom-icon") as HTMLImageElement;
+      if (icon) {
+        icon.setAttribute("type", "viewOff");
+      }
+      
+      const passwordHints = this.querySelectorAll("password-hint");
+      passwordHints.forEach((hintElement) => {
+        hintElement.setAttribute("valid", "false");
+      });
+    }
+    
+    this.setAttribute("error", "false");
+  }
+
   connectedCallback() {
     const field = this.querySelector(".field") as HTMLDivElement;
     const icon = field.querySelector("custom-icon") as HTMLImageElement;
     const input = field.querySelector(".field_input") as HTMLInputElement;
+    const form = this.closest("form") as HTMLFormElement;
 
     field.addEventListener("click", this.focusField);
     input.addEventListener("input", this.onInput.bind(this));
@@ -128,17 +148,27 @@ class Field extends HTMLElement {
     if (icon) {
       icon.addEventListener("click", this.togglePasswordDisplay.bind(this));
     }
+
+    if (form) {
+      form.addEventListener("reset", this.onFormReset.bind(this));
+    }
   }
 
   disconnectedCallback() {
     const field = this.querySelector(".field") as HTMLDivElement;
     const input = field.querySelector(".field_input") as HTMLInputElement;
     const icon = field.querySelector("custom-icon") as HTMLImageElement;
+    const form = this.closest("form") as HTMLFormElement;
 
     field.removeEventListener("click", this.focusField);
     input.removeEventListener("change", this.onInput.bind(this));
     if (icon) {
       icon.removeEventListener("click", this.togglePasswordDisplay.bind(this));
+    }
+    
+    // 移除 form reset 事件監聽器
+    if (form) {
+      form.removeEventListener("reset", this.onFormReset.bind(this));
     }
   }
 

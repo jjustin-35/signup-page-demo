@@ -101,6 +101,7 @@ class SignUpPage extends HTMLElement {
     if (!response.isError) {
       alert("Signup successful");
       form.reset();
+
     } else {
       alert("Signup failed");
     }
