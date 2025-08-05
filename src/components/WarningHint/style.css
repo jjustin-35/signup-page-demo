@@ -3,6 +3,7 @@
   align-items: flex-start;
   gap: 8px;
   padding: 16px;
+  font-size: 16px;
   background-color: var(--error-color-light);
   border-radius: 4px;
   border: 1px solid var(--error-color);

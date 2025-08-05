@@ -5,6 +5,7 @@ import "../../components/WarningHint";
 import data from "../../components/SignupForm/data";
 import "./style.css";
 import { hasNumber, isLongerThan8Characters } from "@/helpers/validation";
+import { baseUrl } from "@/config";
 
 class SignUpPage extends HTMLElement {
   constructor() {
@@ -19,7 +20,7 @@ class SignUpPage extends HTMLElement {
     const warningText = "Please complete all the required fields to proceed.";    
 
     signupSection.innerHTML = `
-      <a class="signup_backlink" href="/">
+      <a class="signup_backlink" href="${baseUrl}">
         <custom-icon type="arrowLeft" width="16px" height="16px"></custom-icon>
         <span>Back</span>
       </a>

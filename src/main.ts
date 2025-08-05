@@ -1,4 +1,5 @@
 import "./global.css";
+import { baseUrl, signupUrl } from "./config";
 import "./components/Field";
 import "./components/Field/style.css";
 import "./components/Field/passwordHint";
@@ -20,11 +21,11 @@ const renderPage = (page: string) => {
 };
 
 if (app) {
-  if (pathname === "/signup") {
+  if (pathname === signupUrl) {
     renderPage("signup-page");
   }
 
-  if (pathname === "/") {
+  if (pathname === baseUrl) {
     renderPage("home-page");
   }
 }

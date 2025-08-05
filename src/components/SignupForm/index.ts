@@ -15,8 +15,6 @@ class SignupForm extends HTMLElement {
 
     const form = document.createElement("form");
     form.classList.add("signup_form");
-    form.setAttribute("action", "/signup");
-    form.setAttribute("method", "post");
 
     const formType = this.getAttribute("formType") as keyof typeof formData;
     const formFields = formData[formType];
@@ -35,7 +33,7 @@ class SignupForm extends HTMLElement {
     form.innerHTML = `
       ${formFieldsHTML}
       <login-checkbox label="${checkboxLabel}" name="accept_terms" required="true"></login-checkbox>
-      <button class="button" type="submit">
+      <button class="button button--content_center" type="submit">
         <span>${this.buttonText}</span>
       </button>
     `;

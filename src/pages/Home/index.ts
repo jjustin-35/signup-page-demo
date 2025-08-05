@@ -1,3 +1,4 @@
+import { signupUrl } from "@/config";
 import "./style.css";
 
 class HomePage extends HTMLElement {
@@ -13,7 +14,7 @@ class HomePage extends HTMLElement {
     homeSection.innerHTML = `
       <h1>Home</h1>
       <div class="home_button_group">
-        <a href="/signup" class="button">Sign Up</a>
+        <a href="${signupUrl}" class="button button--content_center">Sign Up</a>
       </div>
     `;
 
