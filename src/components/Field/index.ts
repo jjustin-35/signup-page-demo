@@ -61,7 +61,13 @@ class Field extends HTMLElement {
         `
         )
         .join("");
-      this.innerHTML += passwordHints;
+      
+      const tempContainer = document.createElement('div');
+      tempContainer.innerHTML = passwordHints;
+      
+      while (tempContainer.firstChild) {
+        this.appendChild(tempContainer.firstChild);
+      }
     }
   }
 

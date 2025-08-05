@@ -7,24 +7,24 @@ class Icon extends HTMLElement {
   constructor() {
     super();
 
-    const shadow = this.attachShadow({ mode: "open" });
     const icon = document.createElement("img");
     icon.style.display = "block";
 
     const type = this.getAttribute("type") as IconType;
     const width = this.getAttribute("width");
     const height = this.getAttribute("height");
+    const iconData = data[type];
 
-    icon.src = data[type]?.src ?? "";
-    icon.alt = data[type]?.alt ?? "";
+    icon.src = iconData ? `${baseUrl}${iconData.src}` : "";
+    icon.alt = iconData?.alt ?? "";
     icon.style.width = width ?? "100%";
     icon.style.height = height ?? "100%";
 
-    shadow.appendChild(icon);
+    this.appendChild(icon);
   }
 
   attributeChangedCallback(name: string, _: string, newValue: string) {
-    const icon = this.shadowRoot?.querySelector("img") as HTMLImageElement;
+    const icon = this.querySelector("img") as HTMLImageElement;
     switch (name) {
       case "type":
         const newIcon = data[newValue as IconType];
